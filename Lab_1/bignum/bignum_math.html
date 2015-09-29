@@ -1,0 +1,186 @@
+<div>
+<div>
+CSCI 2021 - Bignum
+</div>
+</div>
+
+<div id="header">
+<h1>CSCI 2021 - Bignum</h1>
+<span id="author">100 Points</span></div>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Due: <b>Tuesday, October 6th at 11:59 PM</b></p>
+</div>
+</div>
+</div>
+<h2 id="_1_1_introduction">1.1 Introduction</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>The intent of this lab is to warm up your C programming skills, and to tie in with topics from lecture.</strong><br> All questions can be directed to the TAs or Prof. Dovolis. Also, feel free to ask questions on the General Class forum. Our goal is to maximize <em>your</em> understanding of the class materials.</p>
+</div>
+</div>
+<h2 id="_1_2_rules_and_notes">1.2 Rules and Notes</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>You may <strong> not </strong> work in pairs on this assignment. The goal of the assignment is to begin to learn C, so you need to do it individually.</p>
+</li>
+<li>
+<p>You may use <tt>strlen</tt> from <tt>string.h</tt>, as well as <tt>printf</tt>.</p>
+</li>
+<li>
+<p>Besides the above two functions, you are forbidden from using any other standard library functions. However, you may write your own versions of standard library functions.</p>
+</li>
+</ul>
+</div>
+</div>
+<h2 id="_1_3_files_to_submit_and_grading">1.3 Files to Submit and Grading</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>For this lab, you will submit the following files through Moodle (note each of the three files must be submitted individually - <b>do NOT zip, tar, tar.gz or compress in any way</b>):</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><tt>bignum_math.c</tt> <em>(required)</em></p>
+</li>
+<li>
+<p><tt>bignum_math.h</tt> <em>(optional)</em></p>
+</li>
+<li>
+<p><tt>readme.txt</tt> <em>(required)</em></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>A preliminary rubric for grading this assignment is as follows:</p>
+</div>
+<div class="tableblock">
+<table style="width: 100%;" rules="none" frame="void" cellpadding="4" cellspacing="0"><colgroup><col width="20%"> <col width="80%"></colgroup>
+<tbody>
+<tr>
+<td align="left" valign="top">
+<p class="table">bignum_math.c code</p>
+</td>
+<td align="left" valign="top">
+<p class="table">75 points</p>
+</td>
+</tr>
+<tr>
+<td align="left" valign="top">
+<p class="table">Style</p>
+</td>
+<td align="left" valign="top">
+<p class="table">10 points</p>
+</td>
+</tr>
+<tr>
+<td align="left" valign="top">
+<p class="table">Comments</p>
+</td>
+<td align="left" valign="top">
+<p class="table">10 points</p>
+</td>
+</tr>
+<tr>
+<td align="left" valign="top">
+<p class="table">Following Instructions</p>
+</td>
+<td align="left" valign="top">
+<p class="table">5 points</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<h2 id="_2_1_setup">2.1 Setup</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>First, download the <tt>bignum.tar</tt> file from Moodle to your home cs2021 directory.</p>
+</div>
+<div class="paragraph">
+<p>Then, use <tt>tar</tt> to extract the files contained within:</p>
+</div>
+<div class="paragraph">
+<p><tt>% tar -xvf bignum.tar</tt></p>
+</div>
+<div class="paragraph">
+<p>You should now have a directory named <tt>bignum</tt> with the following files in it:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><tt>bignum_math.c</tt> - File with function outlines</p>
+</li>
+<li>
+<p><tt>bignum_math.h</tt> - Header file with some global definitions (You don’t need to change this file, but you may)</p>
+</li>
+<li>
+<p><tt>bignum.html</tt> - This file</p>
+</li>
+</ul>
+</div>
+</div>
+<h2 id="_2_2_your_task">2.2 Your task</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>For this lab, you will write a program that can perform <b>addition</b> and <b>subtraction</b> (<i>not</i> multiplication or division) of large numbers of any base between 2 and 36 (2 and 36 inclusive). You will have to use arrays instead of any regular datatypes, in order to be able to hold these large numbers.</p>
+<p>Starting from the given file, you’ll need to fill in the function <tt>perform_math</tt> that will take in the inputs from <tt>main</tt>, as well as the operation to be performed. You will return a result from your function, and <tt>main</tt> will print out this result when finished.</p>
+<p>But wait; there are two other functions (<tt>valid_input</tt> and <tt>bignum_print</tt>) that you will need to complete. <tt>valid_input</tt> checks the input array of characters and determines whether the input is well formed and in the correct base and sign. <tt>bignum_print</tt> takes an array of integers for the result and correctly prints it to the terminal in the given base.</p>
+</div>
+<div class="paragraph">
+<p>In an attempt to make your life easier, we have provided a function that converts the input array of characters to an array of integers (Notice that this is called in main, after the input array of characters has been determined to be well formed by <tt>valid_input</tt>). Therefore <tt>perform_math</tt>, will be given two arrays of <tt>int</tt>. Each index of an array will contain a number (integer) for each character in a given input.</p>
+</div>
+<div class="paragraph">
+<p>Because arrays in C are not complex objects, there is no good way to set or compute an array’s length. Thus, we’ll need some way to denote that the number is over. Since we actually have ints, a negative number such as -1 (negative one) will indicate that the number is finished. Thus, if I input the number <tt>1234567ABC</tt>, the array that gets passed to <tt>perform_math</tt> will be <tt>{ 1, 2, 3, 4, 5, 6, 7, 10, 11, 12, -1 }</tt>.</p>
+</div>
+<div class="paragraph">
+<p>Also, we don't allow negative inputs.</p>
+</div>
+<div class="paragraph">
+<p>When you return your result, you will use the same format (so take care of the negative results in case of subtraction).</p>
+</div>
+<div class="paragraph">
+<p>Here is a sample compilation and run-through:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>gcc -Wall -o bignum_math bignum_math.c
+./bignum_math 16 f4d905 + F
+Result: F4D914
+</tt></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In order to get you started in this lab, we have provided a function <tt>add</tt> which adds two numbers correctly. You may refer to it as an example before creating the correct Subtraction function.</p>
+</div>
+<h3 id="_2_2_1_tt_bignum_math_c_tt">2.2.1 <tt>bignum_math.c</tt></h3>
+<div style="clear: left;">&nbsp;</div>
+<div class="paragraph">
+<p>This file is where you will write all of your code. Do not change <tt>main</tt>, but understand what it does: It takes arguments from the command line, converts them from <tt>char</tt> arrays to <tt>int</tt> arrays, passes them to <tt>perform_math</tt>, then prints the result.</p>
+</div>
+<div class="paragraph">
+<p>Please read the advice in the code comments: Add any other functions that you may need, keep code clean, concise and explain where necessary. This may not be a software design course, but that doesn’t mean we won’t take points off for messy code.</p>
+</div>
+<h3 id="_2_2_2_tt_readme_txt_tt">2.2.2 <tt>readme.txt</tt></h3>
+<div style="clear: left;">&nbsp;</div>
+<div class="paragraph">
+<p>Along with your source files, submit a file named <tt>readme.txt</tt>. This must contain your <strong> name and X500 </strong>. Note that failure to turn in a readme is considered a failure to follow instructions and points will be deducted.</p>
+</div>
+</div>
+<h2 id="_3_tips">3 Tips</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>It is perfectly legal to use any code that we present in discussion or lecture. We may supply you with some helpful code hints.</p>
+</li>
+<li>
+<p>It is <strong>very</strong> easy to write code that will accidentally run off the end of an array in C. Unlike Java, there will be no compilation error, no warning, not even necessarily a run-time error. The most likely thing you will encounter is strange behavior that doesn’t make any sense. Double-check your array accesses to avoid this problem!</p>
+</li>
+</ul>
+</div>
+</div>
